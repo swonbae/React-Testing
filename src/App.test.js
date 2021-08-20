@@ -1,17 +1,17 @@
 import * as React from "react";
-import * as ReactDom from "react-dom";
+import { render } from "@testing-library/react";
 
 import App from "./App";
 
 test("renders the correct content", () => {
-  // Render a React component to the DOM
-  const root = document.createElement("div");
-  ReactDom.render(<App />, root);
+  const { getByText, getByLabelText } = render(<App />);
 
-  // Use DOM APIs (querySelector)
-  expect(root.querySelector("h1").textContent).toBe("TODOs");
-  expect(root.querySelector("label").textContent).toBe(
-    "What needs to be done?"
-  );
-  expect(root.querySelector("button").textContent).toBe("Add #1");
+  // expect(getByText("TODOs")).not.toBeNull();
+  // expect(getByLabelText("What needs to be done?")).not.toBeNull();
+  // expect(getByText("Add #1")).not.toBeNull();
+
+  // => Still works well without assertion commented above
+  expect(getByText("TODOs"));
+  expect(getByLabelText("What needs to be done?"));
+  expect(getByText("Add #1"));
 });
